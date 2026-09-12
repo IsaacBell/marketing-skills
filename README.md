@@ -1,6 +1,6 @@
-# AI Marketing Skills
+# AI Marketing Toolkit
 
-**Run marketing like an engineering team.** Open-source agent skills for SEO, positioning, competitive research, and content ops — drop-in `SKILL.md` workflows for Claude Code, Kilo, Codex, and any agent that loads skills.
+**Run marketing like an engineering team.** An open-source toolkit for agentic marketing — drop-in `SKILL.md` skills plus the automations, notebooks, and scripts that support them. Built for SEO, positioning, competitive research, and content ops with Claude Code, Kilo, Codex, or any agent that loads skills.
 
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](./LICENSE.md)
 ![Skills: 22](https://img.shields.io/badge/skills-22-6f42c1)
@@ -17,13 +17,13 @@ Marketing is a pile of repeatable jobs: research a keyword, audit a page, size u
 ## Quick start
 
 ```bash
-git clone https://github.com/IsaacBell/ai-marketing-skills
+git clone https://github.com/IsaacBell/ai-marketing-toolkit
 
 # drop a single skill into Claude Code
-cp -R ai-marketing-skills/skills/keyword-research ~/.claude/skills/
+cp -R ai-marketing-toolkit/skills/keyword-research ~/.claude/skills/
 
 # or link the whole collection into a Kilo/agent skills dir
-ln -s "$PWD/ai-marketing-skills/skills" ~/.agents/skills/ai-marketing-skills
+ln -s "$PWD/ai-marketing-toolkit/skills" ~/.agents/skills/ai-marketing-toolkit
 ```
 
 The `pexels` skill needs a free API key:
@@ -32,7 +32,7 @@ The `pexels` skill needs a free API key:
 export PEXELS_API_KEY="..."   # https://www.pexels.com/api/
 ```
 
-No build step, no runtime, no dependencies. Skills are plain Markdown plus optional helper scripts — take one or take all.
+Skills are plain Markdown plus optional helper scripts, and they're the bulk of what's here today — the toolkit is growing to include runnable automations and notebooks. Take one or take all.
 
 ## Skills
 
