@@ -1,1 +1,134 @@
-# [tools]
+[tools]
+pnpm = "latest"
+shellcheck = "latest"
+shfmt = "latest"
+jq = "latest"
+"aqua:asciinema/asciinema" = "latest"
+
+[settings]
+minimum_release_age = "7d"
+minimum_release_age_excludes = ["pnpm"]
+
+# --- session capture (asciinema) ---------------------------------------------
+# Record a command's terminal session to
+# recordings/<ts>-<name>.cast (asciicast-v3)
+#
+# record:
+#   asciinema rec -c "<cmd>" "recordings/$(date +%Y%m%d-%H%M%S)-<name>.cast"
+# -----------------------------------------------------------------------------
+
+[tasks.default]
+description = "List available tasks"
+run = "mise tasks"
+
+[tasks.security-scan]
+description = "Scan the dependency tree for compromised packages"
+run = "pnpm dlx am-i-compromised"
+
+[tasks.gate]
+description = "Security gate (runs security-scan)"
+depends = ["security-scan"]
+
+[tasks.check]
+description = "Validate mise config, shell scripts, and skill frontmatter"
+run = '''
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "==> mise config"
+mise tasks --all >/dev/null
+
+echo "==> shellcheck"
+find . -path ./.git -prune -o -name '*.sh' -exec shellcheck {} +
+
+echo "==> SKILL.md frontmatter"
+status=0
+while IFS= read -r -d '' skill; do
+  [ "$(head -n 1 "$skill")" = "---" ] || continue
+  frontmatter="$(awk 'NR == 1 { next } /^---[[:space:]]*$/ { exit } { print }' "$skill")"
+  if ! grep -q '^name:' <<<"$frontmatter"; then
+    echo "missing 'name:' in $skill" >&2
+    status=1
+  fi
+  if ! grep -q '^description:' <<<"$frontmatter"; then
+    echo "missing 'description:' in $skill" >&2
+    status=1
+  fi
+done < <(find . -path ./.git -prune -o -name 'SKILL.md' -print0)
+
+exit "$status"
+'''
+
+[tasks.fmt]
+description = "Format shell sources with shfmt"
+run = "shfmt -w -i 2 ."
+
+[tasks.fmt-check]
+description = "Verify shell sources are shfmt-clean"
+run = "shfmt -d -l -i 2 ."
+
+# original inspiration from: https://github.com/amalshehu/pexels-skill
+[tasks.img-search-pexels]
+description = "Search royalty-free photos on Pexels"
+usage = '''
+arg "<query>" help="Search query"
+flag "--count <count>" default="15" help="Results to return (15-80)" {
+  arg "<count>" validate="int(value) >= 15 && int(value) <= 80" validate_error="must be between 15 and 80"
+}
+flag "--orientation <orientation>" help="Desired photo orientation" {
+  choices "landscape" "portrait" "square"
+}
+flag "-c --color <color>" help="Desired photo color" {
+  choices "red" "orange" "yellow" "green" "turquoise" "blue" "violet" "pink" "brown" "black" "gray" "white"
+}
+flag "-v --verbose" count=#true help="Enable chatty output"
+'''
+
+run = '''
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Handle verbosity
+if [ "${usage_verbose:-0}" -ge 2 ]; then
+  set -x
+elif [ "${usage_verbose:-0}" -ge 1 ]; then
+  export VERBOSE=1
+fi
+
+QUERY="${usage_query?}"
+COUNT="${usage_count:-15}"
+ORIENTATION="${usage_orientation:-}"
+COLOR="${usage_color:-}"
+
+PEXELS_API_KEY="${PEXELS_API_KEY:?Set PEXELS_API_KEY (get one free at https://www.pexels.com/api/)}"
+
+ARGS=(-G "https://api.pexels.com/v1/search" --data-urlencode "query=${QUERY}" --data-urlencode "per_page=${COUNT}")
+if [ -n "$ORIENTATION" ]; then
+  ARGS+=(--data-urlencode "orientation=${ORIENTATION}")
+fi
+if [ -n "$COLOR" ]; then
+  ARGS+=(--data-urlencode "color=${COLOR}")
+fi
+
+RESP="$(curl -s -w $'\n%{http_code}' "${ARGS[@]}" -H "Authorization: ${PEXELS_API_KEY}")"
+CODE="${RESP##*$'\n'}"
+BODY="${RESP%$'\n'*}"
+
+if [ "$CODE" != "200" ]; then
+  echo "Pexels API error (HTTP $CODE):" >&2
+  printf '%s' "$BODY" | jq '.error? // empty' >&2 2>/dev/null || true
+  printf '%s' "$BODY" >&2
+  exit 1
+fi
+
+printf '%s' "$BODY" | jq '{
+  total_results,
+  photos: [.photos[] | {
+    id,
+    alt,
+    photographer,
+    url,
+    src: { large: .src.large, original: .src.original, medium: .src.medium }
+  }]
+}'
+'''

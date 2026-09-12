@@ -1,15 +1,5 @@
 version: 2
 updates:
-  - package-ecosystem: npm
-    directory: /apps/am-i-compromised
-    schedule:
-      interval: daily
-    cooldown:
-      default-days: 7
-    labels:
-      - npm
-      - dependencies
-
   - package-ecosystem: github-actions
     directory: /
     schedule:

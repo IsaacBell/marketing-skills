@@ -1,1 +1,29 @@
-.gitignore/*
+# OS
+.DS_Store
+
+# Node
+node_modules/
+.pnpm-store/
+*.log
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/
+build/
+coverage/
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Local mise overrides
+.mise.local.toml
+mise.local.toml
+
+# asciinema recordings (see mise.toml)
+recordings/
