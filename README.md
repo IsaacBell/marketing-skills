@@ -1,18 +1,15 @@
 # AI Marketing Toolkit
 
-**Run marketing like an engineering team.** An open-source toolkit for agentic marketing — drop-in `SKILL.md` skills plus the automations, notebooks, and scripts that support them. Built for SEO, positioning, competitive research, and content ops with Claude Code, Kilo, Codex, or any agent that loads skills.
+An open-source toolkit for agentic marketing - for those who like to experiment with the latest tools.
+
+Built for SEO, positioning, competitive research, and content ops.
 
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](./LICENSE.md)
 ![Skills: 22](https://img.shields.io/badge/skills-22-6f42c1)
 ![Format: SKILL.md](https://img.shields.io/badge/format-SKILL.md-2ea44f)
-![Agents: Claude Code · Kilo · Codex](https://img.shields.io/badge/agents-Claude%20Code%20%C2%B7%20Kilo%20%C2%B7%20Codex-6f42c1)
 ![Tools: mise](https://img.shields.io/badge/tools-mise-6E4C13)
 
-> **New here?** [Subscribe to The Agentic Marketer](https://the-agentic-marketer.beehiiv.com/subscribe) — new agent skills, runnable workflows, and what's actually working in agentic marketing.
-
-## Why this exists
-
-Marketing is a pile of repeatable jobs: research a keyword, audit a page, size up a competitor, draft in a brand voice. Agent skills turn those into reusable instructions your AI runs the same way every time, instead of re-prompting from scratch. This is the working set I run my own marketing on.
+> **New here?** [Subscribe to The Agentic Marketer](https://the-agentic-marketer.beehiiv.com/subscribe) — new trends and tools, early access to LeadsDB, and reporting on what's actually working in agentic marketing.
 
 ## Quick start
 
@@ -31,8 +28,6 @@ The `pexels` skill needs a free API key:
 ```bash
 export PEXELS_API_KEY="..."   # https://www.pexels.com/api/
 ```
-
-Skills are plain Markdown plus optional helper scripts, and they're the bulk of what's here today — the toolkit is growing to include runnable automations and notebooks. Take one or take all.
 
 ## Skills
 
@@ -54,8 +49,8 @@ Skills are plain Markdown plus optional helper scripts, and they're the bulk of 
 
 | Skill | Does |
 | --- | --- |
-| `Voice and Positioning` | Builds a Voice Constraint System to keep a person's voice consistent at scale. |
-| `Social Signal` | Template for pasting social posts and getting a recommended next action. |
+| `Voice and Positioning` | Builds a Voice Constraint System to keep a consistent writing voice across many runs. |
+| `Social Signal` | Template for social posts and getting a recommended next action. |
 
 ### Engineering workflow
 
@@ -74,13 +69,13 @@ Skills are plain Markdown plus optional helper scripts, and they're the bulk of 
 
 | Skill | Does |
 | --- | --- |
-| `caveman` | Ultra-compressed output mode that cuts tokens without losing accuracy. |
+| `caveman` | Ultra-compressed output mode that reduces AI costs, often by over half. |
 | `caveman-commit` | Caveman-style commit messages. |
 | `pexels` | Searches and fetches royalty-free stock photos from Pexels. |
 
 ## Stay in the loop
 
-[**The Agentic Marketer**](https://the-agentic-marketer.beehiiv.com/subscribe) — one agentic marketing workflow per issue, new skills, and teardowns of what's actually working.
+[**The Agentic Marketer**](https://the-agentic-marketer.beehiiv.com/subscribe) — This is also where LeadsDB early access previews go out.
 
 ## Repo layout
 
