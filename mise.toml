@@ -3,6 +3,8 @@ pnpm = "latest"
 shellcheck = "latest"
 shfmt = "latest"
 jq = "latest"
+ripgrep = "latest"
+gitleaks = "latest"
 "aqua:asciinema/asciinema" = "latest"
 
 [settings]
@@ -24,6 +26,10 @@ run = "mise tasks"
 [tasks.security-scan]
 description = "Scan the dependency tree for compromised packages"
 run = "pnpm dlx am-i-compromised"
+
+[tasks.secrets-scan]
+description = "Scan git history for leaked secrets (gitleaks)"
+run = "gitleaks detect --redact --no-banner --exit-code 1"
 
 [tasks.gate]
 description = "Security gate (runs security-scan)"
