@@ -5,7 +5,7 @@ An open-source toolkit for agentic marketing - for those who like to experiment 
 Built for SEO, positioning, competitive research, and content ops.
 
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](./LICENSE.md)
-![Skills: 22](https://img.shields.io/badge/skills-22-6f42c1)
+![Skills: 23](https://img.shields.io/badge/skills-23-6f42c1)
 ![Format: SKILL.md](https://img.shields.io/badge/format-SKILL.md-2ea44f)
 ![Tools: mise](https://img.shields.io/badge/tools-mise-6E4C13)
 
@@ -43,6 +43,7 @@ export PEXELS_API_KEY="..."   # https://www.pexels.com/api/
 | `competitor-analysis` | Analyzes one competitor's organic footprint, keywords, and gaps. |
 | `competitive-landscape` | Maps market leaders, winning themes, coverage, and strategic gaps. |
 | `openseo-review-web-content` | Writes and reviews on-brand web/blog/feature copy. |
+| `ai-agent-visibility` | Adds robots.txt, sitemap.xml, and llms.txt so a site is legible to crawlers and AI agents. |
 | `openseo-release-notes` | Cuts a release: version bump, notes from commits, review pass, PR. |
 
 ### Positioning & voice
