@@ -99,7 +99,7 @@ Every command in a post is copy-pasteable as written, with concrete example valu
 - Sitemap URLs have no `.html` and no trailing slash.
 - Preview deployments are often behind the host's login (Vercel Authentication answers 302). Check them with the host's own authenticated fetch (`vercel curl <path> --deployment <url>`), not plain `curl`. The production alias is public, and the main site's rewrite needs it public.
 - Run an accessibility scan (axe-core over the index and every post, three widths, light and dark) before the first deploy and after any change to the base template. Reading the CSS misses what a scan finds: unstyled links fall back to browser blue and fail contrast on a dark theme.
-- Every post has a line in `llms.txt` with the post's own description. The two are written by hand in two places, so check them with a small script that compares the frontmatter against the file, and run it on deploy. A site that adds posts for months without this check ends up with new posts missing.
+- Every post has a line in `llms.txt` with the post's own description. The two are written by hand in two places, so check them with a small script that compares the frontmatter against the file, and run it as a build step. A site that adds posts for months without this check ends up with new posts missing.
 - Open the live page after deploying. Look for a loaded font (`document.fonts`), the link colour, and anything peeking in at the viewport edge.
 
 ## Maintaining posts

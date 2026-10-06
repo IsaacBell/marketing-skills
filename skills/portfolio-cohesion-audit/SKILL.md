@@ -28,7 +28,7 @@ Write the crawl output to a gitignored working dir, not to the conversation. Rea
 
 ## Step 2 — Stranger read, delegated
 
-Send the visible text to a cheap worker model with `stranger-read-prompt.md`. Label properties with letters, never with the owner's name. The worker extracts the headline claim, audience, price signal, CTA, voice (I/we/brand), every name form, every job title, cross-mentions and proof, then answers "same person obvious?" for each pair. Extraction is rote work. Keep judgment for the lead model.
+Send the visible text to a cheap worker model with `stranger-read-prompt.md`. Label properties with letters, never with the operator's name. The worker extracts the headline claim, audience, price signal, CTA, voice (I/we/brand), every name form, every job title, cross-mentions and proof, then answers "same person obvious?" for each pair. Extraction is rote work. Keep judgment for the lead model.
 
 Spot-check every quote that will become a finding with `grep` on the crawl JSON. Workers attribute nav and footer text to the wrong page.
 
@@ -73,9 +73,9 @@ Keep the report short. The user needs about 10 fixes, not 40.
 
 ## Guardrails
 
-- Visit every property live, in this session. Memory of the owner's own sites is stale, and so is the owner's memory.
+- Visit every property live, in this session. Memory of the operator's own sites is stale, and so is the operator's memory.
 - Do not recommend merging properties at different price points. Recommend explicit role labels and two-way links.
-- Do not treat the owner's own business as a client case study without saying so. Labeled self-built proof is fine. Unlabeled self-built proof is a credibility risk if discovered.
+- Do not treat the operator's own business as a client case study without saying so. Labeled self-built proof is fine. Unlabeled self-built proof is a credibility risk if discovered.
 - Separate donation/tip mechanics from paid offers on any surface a high-ticket buyer sees.
 - If a repository blocks personal data in shell commands, put the value in a file and read it from there.
 

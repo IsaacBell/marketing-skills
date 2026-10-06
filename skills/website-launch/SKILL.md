@@ -93,7 +93,7 @@ Work the phases in order. For each item: run the check, record pass or fail, app
 - The fix for each failure, written as one plain step.
 - What was not verified, and why.
 
-## Writing the owner-facing version
+## Writing the version for a site owner
 
 Owners are not developers. Keep each check under about 15 words, name where to look and what a pass looks like, and put commands in a developer note, not the check.
 
