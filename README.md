@@ -5,6 +5,7 @@ Agent skills for SEO, search and AI visibility, positioning and voice, content, 
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](./LICENSE.md)
 ![Skills: 26](https://img.shields.io/badge/skills-26-6f42c1)
 ![Format: SKILL.md](https://img.shields.io/badge/format-SKILL.md-2ea44f)
+[![skills.sh](https://skills.sh/b/IsaacBell/marketing-skills)](https://skills.sh/IsaacBell/marketing-skills)
 
 ## Install
 
