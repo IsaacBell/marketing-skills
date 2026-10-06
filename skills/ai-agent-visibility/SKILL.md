@@ -9,7 +9,7 @@ description: "Make a site legible to AI agents and crawlers by adding a robots.t
 
 Give a site the three plain-text files that make it discoverable and legible to crawlers and AI agents: `robots.txt`, `sitemap.xml`, and `llms.txt`. Use this when a site is missing one or more of these, or when someone reports a site is "invisible to AI agents" or "not showing up" — verify first (see Workflow step 1) rather than assuming the cause is JS rendering or a block; the far more common cause for a small or new site is simply that none of these files exist and the domain has never been indexed.
 
-This skill only makes a site legible once something visits it. It does not get the site crawled or indexed — that still requires the owner to submit the sitemap in Google Search Console / Bing Webmaster Tools and, for a brand-new domain, to earn inbound links over time. Say this plainly when delivering the files.
+This skill only makes a site legible once something visits it. It does not get the site crawled or indexed — that still requires the site owner to submit the sitemap in Google Search Console / Bing Webmaster Tools and, for a brand-new domain, to earn inbound links over time. Say this plainly when delivering the files.
 
 ## Required inputs
 
