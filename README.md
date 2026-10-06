@@ -12,11 +12,11 @@ Agent skills for SEO, search and AI visibility, positioning and voice, content, 
 Install every skill, or pick one:
 
 ```bash
-pnpx skills add IsaacBell/marketing-skills
-pnpx skills add IsaacBell/marketing-skills --skill keyword-research
+npx skills add IsaacBell/marketing-skills
+npx skills add IsaacBell/marketing-skills --skill keyword-research
 ```
 
-`npx skills add` works the same way. Or copy a folder yourself:
+Add `-g` to install for your user account instead of the current project, and `--list` to see the skills without installing. `pnpx skills add` works the same way. Or copy a folder yourself:
 
 ```bash
 git clone https://github.com/IsaacBell/marketing-skills
