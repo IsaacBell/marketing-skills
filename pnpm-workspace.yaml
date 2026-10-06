@@ -13,6 +13,10 @@ trustPolicy: no-downgrade
 # installing newly published package versions
 minimumReleaseAge: 10080
 
+# am-i-hacked is this project's own scanner; the security gate runs it on release day
+minimumReleaseAgeExclude:
+  - am-i-hacked
+
 # https://pnpm.io/settings#blockexoticsubdeps
 # prevent the installation of transitive dependencies
 # from untrusted sources
