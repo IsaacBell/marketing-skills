@@ -63,6 +63,16 @@ Then include a compact table:
 
 End with next actions, including whether to run keyword clustering, create a content brief, or save the chosen keywords.
 
+## When the paid data source is down
+
+If the keyword API is out of credit or unreachable (for example HTTP 402 "Payment Required"), Google autocomplete still shows what people type, though not how many. It is free and needs no key:
+
+```bash
+for q in "seed one" "seed two"; do printf '\n## %s\n' "$q"; curl -s "https://suggestqueries.google.com/complete/search?client=firefox&hl=en&gl=us&q=$(printf %s "$q" | sed 's/ /+/g')" | tr -d '[]"' | tr ',' '\n' | tail -n +2 | head -10; done
+```
+
+Read it for intent and audience, not volume. Suggestions that name a practitioner or consumer audience ("for therapists", "free") show who is searching, which can rule a cluster out. A seed that returns no suggestions at all signals low demand. Label every number-free finding as autocomplete-based in the report.
+
 ## Guardrails
 
 - Do not invent metrics. If OpenSEO does not return a value, write `unknown`.

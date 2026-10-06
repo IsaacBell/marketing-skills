@@ -19,8 +19,8 @@ Be friendly, practical, and structured. Ask questions in small batches. Explain 
 
 Suggest that the user choose or create a local folder for SEO work, for example:
 
-- `~/SEO/<company-or-site>/`
-- `~/Documents/SEO/<company-or-site>/`
+- `<your-seo-folder>/<company-or-site>/`
+- `<your-seo-folder>/` when working on a single site
 - A repo or workspace folder if SEO work should live beside website/content files
 
 Explain that keeping notes, exports, briefs, scraped pages, reports, and preferences in one folder helps the agent build context over time. Future SEO workflows can use that folder rather than starting from a blank conversation.
@@ -139,7 +139,7 @@ After intake, recommend one next OpenSEO workflow:
 - `keyword-clustering`: when they have keywords or GSC data to map to pages
 - `competitive-landscape`: when the market is unclear
 - `competitor-analysis`: when they know a competitor to study
-- `link-prospecting`: when they have a linkable asset or target page
+- link building: when they have a linkable asset or target page
 
 ## Output format
 

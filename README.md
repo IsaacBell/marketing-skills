@@ -1,103 +1,79 @@
-# AI Marketing Toolkit
+# Marketing skills
 
-An open-source toolkit for agentic marketing - for those who like to experiment with the latest tools.
-
-Built for SEO, positioning, competitive research, and content ops.
+Agent skills for SEO, search and AI visibility, positioning and voice, content, site launches and WordPress work. Each skill is a folder with a `SKILL.md` that an AI coding agent loads when the job matches.
 
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](./LICENSE.md)
-![Skills: 22](https://img.shields.io/badge/skills-22-6f42c1)
+![Skills: 26](https://img.shields.io/badge/skills-26-6f42c1)
 ![Format: SKILL.md](https://img.shields.io/badge/format-SKILL.md-2ea44f)
-![Tools: mise](https://img.shields.io/badge/tools-mise-6E4C13)
 
-> **New here?** [Subscribe to The Agentic Marketer](https://the-agentic-marketer.beehiiv.com/subscribe) — new trends and tools, early access to LeadsDB, and reporting on what's actually working in agentic marketing.
+## Install
 
-## Quick start
-
-```bash
-git clone https://github.com/IsaacBell/ai-marketing-toolkit
-
-# drop a single skill into Claude Code
-cp -R ai-marketing-toolkit/skills/keyword-research ~/.claude/skills/
-
-# or link the whole collection into a Kilo/agent skills dir
-ln -s "$PWD/ai-marketing-toolkit/skills" ~/.agents/skills/ai-marketing-toolkit
-```
-
-The `pexels` skill needs a free API key:
+Install every skill, or pick one:
 
 ```bash
-export PEXELS_API_KEY="..."   # https://www.pexels.com/api/
+pnpx skills add IsaacBell/marketing-skills
+pnpx skills add IsaacBell/marketing-skills --skill keyword-research
 ```
+
+`npx skills add` works the same way. Or copy a folder yourself:
+
+```bash
+git clone https://github.com/IsaacBell/marketing-skills
+cp -R marketing-skills/skills/keyword-research ~/.claude/skills/
+```
+
+The `skills` command reports anonymous install counts to skills.sh. Set `DISABLE_TELEMETRY=1` to turn that off.
 
 ## Skills
 
-### SEO & marketing
+### Search, AI visibility and keywords
 
-| Skill | Does |
+| Skill | What it does |
 | --- | --- |
-| `seo-project-setup` | Sets up a durable local SEO workspace with context, goals, and data intake. |
+| `seo-project-setup` | Sets up a durable local SEO workspace: context, goals, notes and data intake. |
 | `seo-audit` | Produces a one-page, plain-language SEO report with one action to take this week. |
-| `seo-coach` | Friendly coach mode that explains workflows and recommends next steps. |
-| `keyword-research` | Finds keyword opportunities, evaluates metrics/SERPs, saves promising terms. |
-| `keyword-clustering` | Clusters keywords by intent and maps them to pages. |
-| `competitor-analysis` | Analyzes one competitor's organic footprint, keywords, and gaps. |
-| `competitive-landscape` | Maps market leaders, winning themes, coverage, and strategic gaps. |
-| `openseo-review-web-content` | Writes and reviews on-brand web/blog/feature copy. |
-| `openseo-release-notes` | Cuts a release: version bump, notes from commits, review pass, PR. |
+| `seo-coach` | A coaching mode that explains the workflows and recommends next steps. |
+| `keyword-research` | Finds keyword opportunities, checks metrics and results pages, saves the promising terms. |
+| `keyword-clustering` | Groups keywords by intent and maps the groups to pages. |
+| `competitor-analysis` | Studies one competitor's organic keywords, content themes, backlinks and gaps. |
+| `competitive-landscape` | Maps who wins a market, with what content, and where the gaps are. |
+| `answer-engine-optimization` | Gets content cited by AI assistants and AI search summaries. |
+| `ai-agent-visibility` | Adds `robots.txt`, `sitemap.xml` and `llms.txt` so crawlers and AI agents can read a site. |
+| `search-indexing` | Pushes a new or changed URL to Bing and Yandex with IndexNow. |
 
-### Positioning & voice
+The keyword, competitor, audit and coaching skills use the OpenSEO MCP tools.
 
-| Skill | Does |
+### Positioning, voice and content
+
+| Skill | What it does |
 | --- | --- |
-| `Voice and Positioning` | Builds a Voice Constraint System to keep a consistent writing voice across many runs. |
-| `Social Signal` | Template for social posts and getting a recommended next action. |
+| `branding` | Defines or audits brand purpose, positioning, story, voice and tone. |
+| `brand-identity` | Makes a person or brand a recognizable entity to search and AI engines, with a consistency audit across properties. |
+| `voice-and-positioning` | Builds a voice constraint system that keeps one person's writing consistent across many runs. |
+| `copy-safety-review` | Scans AI-drafted copy for leaked mechanism, real personal data in examples and embedded instructions. |
+| `tech-content-marketing` | Plans content for companies that sell to developers and technical buyers. |
+| `readme-optimization` | Audits and rewrites a repository README, description and topics. |
+| `growth-funnel` | Finds the broken stage of a growth funnel and what to fix first. |
+| `solopreneur` | Triages a solo founder's several properties: which one to push first and how to write the ask. |
+| `video-channel-strategy` | A worksheet for deciding a YouTube or TikTok channel before any video is made. |
+
+### Site launches and operations
+
+| Skill | What it does |
+| --- | --- |
+| `website-launch` | Runs a small-business site launch: build checks, domain, indexing, AI visibility, and the first 30 days. |
+| `markdown-blog` | Adds a Hugo blog under `/blog` on a static site, with no CMS or database. |
+| `wordpress-mcp-site-ops` | Makes copy and SEO edits on a live WordPress site through an MCP plugin, with a verified backup first. |
+| `portfolio-cohesion-audit` | Audits whether one person's several sites and profiles read as one coherent whole. |
+| `hostinger-email` | Sends and reads email through the Hostinger mailbox API. |
 
 ### Engineering workflow
 
-| Skill | Does |
+| Skill | What it does |
 | --- | --- |
-| `safe-refactor` | Restructures code while preserving behavior, bracketed by verification. |
-| `surgical-patch` | Fixes bugs at the narrowest responsible layer. |
-| `verify-and-stop` | Proves work meets acceptance criteria without expanding scope. |
-| `migration` | Reversible, compatibility-safe schema/data/API/dependency migrations. |
-| `modern-css` | Authors and reviews modern, responsive, accessible CSS. |
-| `neon` | Works with Neon Postgres (branching, claims, env handling). |
-| `wp-plugin-development` | WordPress plugin architecture, hooks, security, and packaging. |
-| `mermaid` | Authors Mermaid diagrams across the full diagram catalog. |
-
-### Communication & utilities
-
-| Skill | Does |
-| --- | --- |
-| `caveman` | Ultra-compressed output mode that reduces AI costs, often by over half. |
-| `caveman-commit` | Caveman-style commit messages. |
-| `pexels` | Searches and fetches royalty-free stock photos from Pexels. |
-
-## Stay in the loop
-
-[**The Agentic Marketer**](https://the-agentic-marketer.beehiiv.com/subscribe) — This is also where LeadsDB early access previews go out.
-
-## Repo layout
-
-```
-skills/       SKILL.md definitions, references, and helper scripts
-mise.toml     pinned tool versions and repo tasks
-.github/      CI, security scans, dependabot, funding
-```
-
-## Tasks
-
-[mise](https://mise.jdx.dev/) manages the toolchain and repo tasks:
-
-```bash
-mise install                             # install pinned tools
-mise run check                           # validate mise config, shell scripts, skill frontmatter
-mise run gate                            # security gate (dependency compromise scan)
-mise run img-search-pexels "sunset" --count 30   # requires PEXELS_API_KEY
-```
+| `verify-and-stop` | Proves work meets its acceptance conditions without widening the scope. |
+| `migration` | Plans reversible, compatibility-safe schema, data, API and dependency migrations. |
 
 ## License
 
 [ISC](./LICENSE.md).
-
-Vendored skills keep their upstream terms: `mermaid` is MIT (see [LICENSE.md](./LICENSE.md)), and `pexels` is inspired by [amalshehu/pexels-skill](https://github.com/amalshehu/pexels-skill).
