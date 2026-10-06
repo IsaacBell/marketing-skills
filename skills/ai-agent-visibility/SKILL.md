@@ -26,7 +26,7 @@ This skill only makes a site legible once something visits it. It does not get t
 5. Draft `llms.txt` following the community convention: an `H1` with the site/business name, a one-line `>` blockquote summary, then short sections (e.g. "## What we do" / "## Pages") stating plain facts — pricing, platforms, who it's for, page links with one-line descriptions each. No marketing language. Keep it under ~40 lines; an agent should be able to answer basic questions from this file alone without fetching anything else.
 6. Place all three files at the site's static root so they resolve at `/robots.txt`, `/sitemap.xml`, `/llms.txt`.
 7. Deploy, then re-fetch all three URLs live to confirm they resolve (not a 404) and render as plain text/XML, not the site's own 404 page.
-8. Tell the owner explicitly: these files make the site legible once crawled, but a new or low-authority domain still needs the sitemap submitted in Search Console / Bing Webmaster Tools, and backlinks, to actually get indexed. Offer to help with the submission step if you have access; otherwise name it as their next manual step.
+8. Tell the site owner explicitly: these files make the site legible once crawled, but a new or low-authority domain still needs the sitemap submitted in Search Console / Bing Webmaster Tools, and backlinks, to actually get indexed. Offer to help with the submission step if you have access; otherwise name it as their next manual step.
 
 ## Output format
 

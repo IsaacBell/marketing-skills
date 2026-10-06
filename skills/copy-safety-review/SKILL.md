@@ -25,7 +25,7 @@ Real personal data or credentials appear where only an example, a placeholder, o
 
 Check for: any email/phone/address that isn't the piece's one intentional, verified contact point; any name presented as a customer/example that wasn't explicitly supplied as fictional or anonymized; anything shaped like a credential, key, or token; screenshots or pasted examples that weren't scrubbed.
 
-Fix pattern: replace with an explicitly fictional placeholder (`jane@example.com`, "a customer in Ohio") or remove the example entirely rather than inventing a plausible-looking real-shaped one.
+Fix pattern: replace with an explicitly fictional placeholder (a made-up name at an example domain, "a customer in Ohio") or remove the example entirely rather than inventing a plausible-looking real-shaped one.
 
 ### 3. Context poisoning / embedded instructions
 The copy contains text that reads as an instruction, system prompt, or directive rather than content — dangerous specifically because this content may later be pasted into a chat, fed to an LLM-based support tool, scraped by an agent, or included in a prompt, where it would be interpreted as instructions rather than quoted material. This includes anything resembling "ignore previous instructions," a fake system/assistant turn, hidden HTML comments containing directives, or a checklist item phrased as a command aimed at whatever processes the page next rather than at the human reader.

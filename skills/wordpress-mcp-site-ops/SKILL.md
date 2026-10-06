@@ -10,7 +10,7 @@ Several WordPress plugins expose the site as an MCP server: a JSON-RPC endpoint 
 ## Preflight (stop at the first failure)
 
 1. **Discover, don't assume.** Call `tools/list` first. Tool names and argument keys differ by plugin and version (`page_id` vs `id`, `field` vs none). Build calls from the listed `inputSchema`, not from memory or an old script.
-2. **Auth check.** Make one read call, for example the current-user tool. A `401` with an empty body means the token was revoked or rotated. Stop. Ask the owner to regenerate it in the plugin's settings and store it in the secret manager. Never ask for the token in chat, and never put it on a command line. Inject it with your secret manager's run command (for example `<secret-manager> run -- <cmd>`).
+2. **Auth check.** Make one read call, for example the current-user tool. A `401` with an empty body means the token was revoked or rotated. Stop. Ask the site owner to regenerate it in the plugin's settings and store it in the secret manager. Never ask for the token in chat, and never put it on a command line. Inject it with your secret manager's run command (for example `<secret-manager> run -- <cmd>`).
 3. **WAF check.** A `403` for the same request that works in `curl` is usually the host firewall rejecting the default `Python-urllib` user agent. Send an explicit `User-Agent`, or use `curl`.
 4. **Backup, and prove it.** Dump every page and post (raw content plus status) to a timestamped JSON file before the first write. The backup script must fail on HTTP errors (`curl -sSf`, or raise on status) and must assert a nonzero page count. Without that, a 401 writes a valid-looking file with `"pages": []` and uploads it as your restore point. Check the file's page/post counts against the listing before you continue.
 
@@ -24,7 +24,7 @@ Several WordPress plugins expose the site as an MCP server: a JSON-RPC endpoint 
 
 ## What content tools usually cannot reach
 
-Route these to wp-admin, WP-CLI through the host, or the owner. Do not hack them in through page content:
+Route these to wp-admin, WP-CLI through the host, or the site owner. Do not hack them in through page content:
 
 | Symptom (from a crawl) | Root cause | Where to fix |
 |---|---|---|

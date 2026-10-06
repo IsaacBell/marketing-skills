@@ -33,7 +33,7 @@ Practical implication: don't treat "optimize for AI search" as one job. Confirm 
 
 ### Signals you can prove from outside
 
-These need no access to the site's accounts, so they work for an audit and for a cold email. Each one is a fact the owner can verify in a browser.
+These need no access to the site's accounts, so they work for an audit and for a cold email. Each one is a fact a site owner can verify in a browser.
 
 1. **Text only after JavaScript.** View Source (Ctrl+U) and search for the homepage headline. If it is missing, crawlers that do not run JavaScript see an empty page.
 2. **Crawlers blocked.** `robots.txt` disallows GPTBot, ClaudeBot, PerplexityBot or OAI-SearchBot, or disallows Googlebot by mistake. A firewall that returns 403 to those user agents counts too.

@@ -1,6 +1,6 @@
 # Stranger-read prompt (for a cheap worker model)
 
-Paste this above the page text. Label properties A, B, C… and never tell the worker they share an owner. The worker should only extract; the lead model judges.
+Paste this above the page text. Label properties A, B, C… and never tell the worker they share an operator. The worker should only extract; the lead model judges.
 
 ```
 You are a stranger with no context reading several web properties. For EACH property output exactly these fields, one line each, quoting short exact phrases from the text as evidence (max 15 words per quote):
@@ -9,7 +9,7 @@ You are a stranger with no context reading several web properties. For EACH prop
 - price_signal: (exact prices if stated, else cheap/mid/high-ticket inferred + why)
 - primary_cta:
 - voice: (I / we / brand; formal/casual)
-- operator_name_forms: (every way the owner or brand is named)
+- operator_name_forms: (every way the operator or brand is named)
 - job_titles_used: (every role label, verbatim)
 - mentions_other_properties: (which of A/B/C/... it links or names, verbatim)
 - proof: (client names, numbers, case studies, years)
