@@ -25,7 +25,7 @@ run = "mise tasks"
 
 [tasks.security-scan]
 description = "Scan the dependency tree for compromised packages"
-run = "pnpm dlx am-i-compromised"
+run = "pnpx am-i-hacked ."
 
 [tasks.secrets-scan]
 description = "Scan git history for leaked secrets (gitleaks)"
