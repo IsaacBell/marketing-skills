@@ -7,12 +7,13 @@
 # Response shape (image models): {"images": [{"url": ..., "width":.., "height":..}], ...}
 
 import argparse
-import http.client
 import json
 import os
 import re
 import sys
+import urllib.error
 import urllib.parse
+import urllib.request
 
 
 DEFAULT_MODEL = "fal-ai/flux/schnell"
@@ -22,30 +23,43 @@ TIMEOUT_SECONDS = 120
 MODEL_ID = re.compile(r"^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$")
 
 
+def https_opener():
+    """An opener with no file://, ftp:// or http:// handlers, so only https can be opened."""
+    opener = urllib.request.OpenerDirector()
+    for handler in (
+        urllib.request.HTTPSHandler(),
+        urllib.request.UnknownHandler(),
+        urllib.request.HTTPRedirectHandler(),
+        urllib.request.HTTPDefaultErrorHandler(),
+        urllib.request.HTTPErrorProcessor(),
+    ):
+        opener.add_handler(handler)
+    return opener
+
+
 def run_model(api_key, model, payload):
     if not MODEL_ID.match(model) or ".." in model:
         print("Invalid model id: {}".format(model), file=sys.stderr)
         return 1, None
-    body = json.dumps(payload).encode("utf-8")
-    headers = {
-        "Authorization": "Key {}".format(api_key),
-        "Content-Type": "application/json",
-    }
+    request = urllib.request.Request(
+        "https://fal.run/{}".format(model),
+        data=json.dumps(payload).encode("utf-8"),
+        method="POST",
+        headers={
+            "Authorization": "Key {}".format(api_key),
+            "Content-Type": "application/json",
+        },
+    )
 
-    conn = http.client.HTTPSConnection("fal.run", timeout=TIMEOUT_SECONDS)
     try:
-        conn.request("POST", "/{}".format(model), body=body, headers=headers)
-        response = conn.getresponse()
-        response_body = response.read().decode("utf-8", errors="replace")
-        status = response.status
-    except (http.client.HTTPException, OSError) as exc:
-        print("Request failed: {}".format(exc), file=sys.stderr)
+        with https_opener().open(request, timeout=TIMEOUT_SECONDS) as response:
+            response_body = response.read().decode("utf-8", errors="replace")
+    except urllib.error.HTTPError as exc:
+        response_body = exc.read().decode("utf-8", errors="replace")
+        print("HTTP error {}: {}".format(exc.code, response_body), file=sys.stderr)
         return 1, None
-    finally:
-        conn.close()
-
-    if status >= 400:
-        print("HTTP error {}: {}".format(status, response_body), file=sys.stderr)
+    except (urllib.error.URLError, OSError) as exc:
+        print("Request failed: {}".format(exc), file=sys.stderr)
         return 1, None
 
     try:
@@ -61,24 +75,14 @@ def download(url, dest):
     if parts.scheme != "https" or not parts.hostname:
         print("Refusing to download a non-https URL: {}".format(url), file=sys.stderr)
         return False
-    path = parts.path or "/"
-    if parts.query:
-        path = "{}?{}".format(path, parts.query)
-    conn = http.client.HTTPSConnection(parts.hostname, parts.port, timeout=TIMEOUT_SECONDS)
     try:
-        conn.request("GET", path)
-        response = conn.getresponse()
-        data = response.read()
-        if response.status != 200:
-            print("Download failed for {}: HTTP {}".format(dest, response.status), file=sys.stderr)
-            return False
+        with https_opener().open(url, timeout=TIMEOUT_SECONDS) as response:
+            data = response.read()
         with open(dest, "wb") as handle:
             handle.write(data)
-    except (http.client.HTTPException, OSError) as exc:
+    except (urllib.error.URLError, OSError) as exc:
         print("Download failed for {}: {}".format(dest, exc), file=sys.stderr)
         return False
-    finally:
-        conn.close()
     return True
 
 
