@@ -9,16 +9,24 @@
 import argparse
 import json
 import os
+import re
 import sys
-import urllib.request
 import urllib.error
+import urllib.parse
+import urllib.request
 
 
 DEFAULT_MODEL = "fal-ai/flux/schnell"
 TIMEOUT_SECONDS = 120
 
 
+MODEL_ID = re.compile(r"^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$")
+
+
 def run_model(api_key, model, payload):
+    if not MODEL_ID.match(model) or ".." in model:
+        print("Invalid model id: {}".format(model), file=sys.stderr)
+        return 1, None
     url = "https://fal.run/{}".format(model)
     body = json.dumps(payload).encode("utf-8")
     request = urllib.request.Request(
@@ -32,6 +40,7 @@ def run_model(api_key, model, payload):
     )
 
     try:
+        # nosemgrep: python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected -- url is fixed https://fal.run plus a model id validated by MODEL_ID
         with urllib.request.urlopen(request, timeout=TIMEOUT_SECONDS) as response:
             response_body = response.read().decode("utf-8", errors="replace")
     except urllib.error.HTTPError as exc:
@@ -51,10 +60,11 @@ def run_model(api_key, model, payload):
 
 def download(url, dest):
     """Save one image. Returns True on success; never follows a non-https URL."""
-    if not str(url).startswith("https://"):
+    if urllib.parse.urlparse(str(url)).scheme != "https":
         print("Refusing to download a non-https URL: {}".format(url), file=sys.stderr)
         return False
     try:
+        # nosemgrep: python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected -- scheme checked as https just above, so file:// is refused
         urllib.request.urlretrieve(url, dest)
     except (urllib.error.URLError, OSError) as exc:
         print("Download failed for {}: {}".format(dest, exc), file=sys.stderr)
