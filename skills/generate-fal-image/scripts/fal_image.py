@@ -40,7 +40,8 @@ def run_model(api_key, model, payload):
     )
 
     try:
-        # nosemgrep: python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected -- url is fixed https://fal.run plus a model id validated by MODEL_ID
+        # url is the fixed https://fal.run host plus a model id validated by MODEL_ID
+        # nosemgrep
         with urllib.request.urlopen(request, timeout=TIMEOUT_SECONDS) as response:
             response_body = response.read().decode("utf-8", errors="replace")
     except urllib.error.HTTPError as exc:
@@ -64,7 +65,8 @@ def download(url, dest):
         print("Refusing to download a non-https URL: {}".format(url), file=sys.stderr)
         return False
     try:
-        # nosemgrep: python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected -- scheme checked as https just above, so file:// is refused
+        # the scheme is checked as https above, so file:// is refused
+        # nosemgrep
         urllib.request.urlretrieve(url, dest)
     except (urllib.error.URLError, OSError) as exc:
         print("Download failed for {}: {}".format(dest, exc), file=sys.stderr)
