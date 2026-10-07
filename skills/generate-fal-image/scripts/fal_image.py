@@ -7,13 +7,12 @@
 # Response shape (image models): {"images": [{"url": ..., "width":.., "height":..}], ...}
 
 import argparse
+import http.client
 import json
 import os
 import re
 import sys
-import urllib.error
 import urllib.parse
-import urllib.request
 
 
 DEFAULT_MODEL = "fal-ai/flux/schnell"
@@ -27,29 +26,26 @@ def run_model(api_key, model, payload):
     if not MODEL_ID.match(model) or ".." in model:
         print("Invalid model id: {}".format(model), file=sys.stderr)
         return 1, None
-    url = "https://fal.run/{}".format(model)
     body = json.dumps(payload).encode("utf-8")
-    request = urllib.request.Request(
-        url,
-        data=body,
-        method="POST",
-        headers={
-            "Authorization": "Key {}".format(api_key),
-            "Content-Type": "application/json",
-        },
-    )
+    headers = {
+        "Authorization": "Key {}".format(api_key),
+        "Content-Type": "application/json",
+    }
 
+    conn = http.client.HTTPSConnection("fal.run", timeout=TIMEOUT_SECONDS)
     try:
-        # url is the fixed https://fal.run host plus a model id validated by MODEL_ID
-        # nosemgrep
-        with urllib.request.urlopen(request, timeout=TIMEOUT_SECONDS) as response:
-            response_body = response.read().decode("utf-8", errors="replace")
-    except urllib.error.HTTPError as exc:
-        response_body = exc.read().decode("utf-8", errors="replace")
-        print("HTTP error {}: {}".format(exc.code, response_body), file=sys.stderr)
-        return 1, None
-    except urllib.error.URLError as exc:
+        conn.request("POST", "/{}".format(model), body=body, headers=headers)
+        response = conn.getresponse()
+        response_body = response.read().decode("utf-8", errors="replace")
+        status = response.status
+    except (http.client.HTTPException, OSError) as exc:
         print("Request failed: {}".format(exc), file=sys.stderr)
+        return 1, None
+    finally:
+        conn.close()
+
+    if status >= 400:
+        print("HTTP error {}: {}".format(status, response_body), file=sys.stderr)
         return 1, None
 
     try:
@@ -61,16 +57,28 @@ def run_model(api_key, model, payload):
 
 def download(url, dest):
     """Save one image. Returns True on success; never follows a non-https URL."""
-    if urllib.parse.urlparse(str(url)).scheme != "https":
+    parts = urllib.parse.urlparse(str(url))
+    if parts.scheme != "https" or not parts.hostname:
         print("Refusing to download a non-https URL: {}".format(url), file=sys.stderr)
         return False
+    path = parts.path or "/"
+    if parts.query:
+        path = "{}?{}".format(path, parts.query)
+    conn = http.client.HTTPSConnection(parts.hostname, parts.port, timeout=TIMEOUT_SECONDS)
     try:
-        # the scheme is checked as https above, so file:// is refused
-        # nosemgrep
-        urllib.request.urlretrieve(url, dest)
-    except (urllib.error.URLError, OSError) as exc:
+        conn.request("GET", path)
+        response = conn.getresponse()
+        data = response.read()
+        if response.status != 200:
+            print("Download failed for {}: HTTP {}".format(dest, response.status), file=sys.stderr)
+            return False
+        with open(dest, "wb") as handle:
+            handle.write(data)
+    except (http.client.HTTPException, OSError) as exc:
         print("Download failed for {}: {}".format(dest, exc), file=sys.stderr)
         return False
+    finally:
+        conn.close()
     return True
 
 
